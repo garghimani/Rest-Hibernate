@@ -1,0 +1,97 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from BookResourceService WSDL service -->
+
+  <service name="BookResource" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://RestDemo.demo.rest.com"/>
+      <parameter name="wsdlServiceElement" value="BookResourceService"/>
+      <parameter name="schemaQualified" value="http://vo.RestDemo.demo.rest.com,http://RestDemo.demo.rest.com"/>
+      <parameter name="wsdlServicePort" value="BookResource"/>
+      <parameter name="className" value="com.rest.demo.RestDemo.BookResourceSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="BookResource"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="getBooks" qname="operNS:getBooks" xmlns:operNS="http://RestDemo.demo.rest.com" returnQName="retNS:getBooksReturn" xmlns:retNS="http://RestDemo.demo.rest.com" returnType="rtns:ArrayOf_xsd_anyType" xmlns:rtns="http://RestDemo.demo.rest.com" returnItemQName="tns:item" xmlns:tns="http://RestDemo.demo.rest.com" soapAction="" >
+      </operation>
+      <operation name="getBook" qname="operNS:getBook" xmlns:operNS="http://RestDemo.demo.rest.com" returnQName="retNS:getBookReturn" xmlns:retNS="http://RestDemo.demo.rest.com" returnType="rtns:Books" xmlns:rtns="http://vo.RestDemo.demo.rest.com" soapAction="" >
+        <parameter qname="pns:id" xmlns:pns="http://RestDemo.demo.rest.com" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="createBooks" qname="operNS:createBooks" xmlns:operNS="http://RestDemo.demo.rest.com" returnQName="retNS:createBooksReturn" xmlns:retNS="http://RestDemo.demo.rest.com" returnType="rtns:Books" xmlns:rtns="http://vo.RestDemo.demo.rest.com" soapAction="" >
+        <parameter qname="pns:book" xmlns:pns="http://RestDemo.demo.rest.com" type="tns:Books" xmlns:tns="http://vo.RestDemo.demo.rest.com"/>
+      </operation>
+      <parameter name="allowedMethods" value="getBooks getBook createBooks"/>
+
+      <typeMapping
+        xmlns:ns="http://vo.RestDemo.demo.rest.com"
+        qname="ns:Books"
+        type="java:com.rest.demo.RestDemo.vo.Books"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://RestDemo.demo.rest.com"
+        qname="ns:>createBooksResponse"
+        type="java:com.rest.demo.RestDemo.CreateBooksResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://RestDemo.demo.rest.com"
+        qname="ns:>createBooks"
+        type="java:com.rest.demo.RestDemo.CreateBooks"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://RestDemo.demo.rest.com"
+        qname="ns:>getBooksResponse"
+        type="java:com.rest.demo.RestDemo.GetBooksResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://RestDemo.demo.rest.com"
+        qname="ns:>getBooks"
+        type="java:com.rest.demo.RestDemo.GetBooks"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <arrayMapping
+        xmlns:ns="http://RestDemo.demo.rest.com"
+        qname="ns:ArrayOf_xsd_anyType"
+        type="java:java.lang.Object[]"
+        innerType="cmp-ns:anyType" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://RestDemo.demo.rest.com"
+        qname="ns:>getBook"
+        type="java:com.rest.demo.RestDemo.GetBook"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://RestDemo.demo.rest.com"
+        qname="ns:>getBookResponse"
+        type="java:com.rest.demo.RestDemo.GetBookResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+</deployment>
